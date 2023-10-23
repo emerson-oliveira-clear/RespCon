@@ -1,10 +1,9 @@
+
 /*
 
-*= require custom.min
-*= require bootstrap.min
-*= require nprogress
-*= require jqueryCustomScrollbar
-*= require font-awesome.min
+*= require bootstrap/dist/css/bootstrap.css
+*= require nprogress/nprogress.css
+*= require font-awesome/css/font-awesome.css
+*= require custom.css
 
 */
-

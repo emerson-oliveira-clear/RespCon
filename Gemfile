@@ -32,6 +32,8 @@ gem 'rails-i18n'
 
 gem 'tty-spinner'
 
+gem 'faker'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

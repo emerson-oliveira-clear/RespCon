@@ -10,11 +10,10 @@ Rails.application.config.assets.version = "1.0"
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.?
 
-Rails.application.config.assets.precompile += %w( nunito.css font-awesome.css sb-admin-2.css )
+Rails.application.config.assets.precompile += %w( sb-admin-2.css  custom.css)
 
-Rails.application.config.assets.precompile += %w( bootstrap.js jquery.easing.min.js jquery.min.js sb-admin-min-2.js )
+Rails.application.config.assets.precompile += %w( sb-admin-2.js custom.js)
 
-Rails.application.config.assets.precompile += %w( custom.min.css bootstrap.min.css nprogress.css jqueryCustomScrollbar.css font-awesome.min.css )
+Rails.application.config.assets.precompile += %w( oh_neyma.jpg )
 
-Rails.application.config.assets.precompile += %w( jquery.js fastclick.js custom.min.js bootstrap.bundle.min.js nprogress.js jqueryCustomScrollbar.js )
 
