@@ -1,6 +1,7 @@
 namespace :dev do
 
   DEFAULT_PASSWORD = 123456
+  DEFAULT_FILES_PATH = File.join(Rails.root, 'lib', 'tmp')
 
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
@@ -19,6 +20,11 @@ namespace :dev do
 
       show_spinner("Cadastrando o usuario padrão..."){%x(rails dev:add_default_user)}
       
+      show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
+
+      show_spinner("Cadastrando algumas questões e respostas...") { %x(rails dev:add_answers_and_questions) }
+
+
       #%x(rails dev:add_mining_types)
       #%x(rails dev:add_coins)
      
@@ -40,8 +46,8 @@ namespace :dev do
   end
 
   desc "Adiciona administrador extras"
-  task add_extras_admins: :environment do
-    10.times do |i|
+    task add_extras_admins: :environment do
+      10.times do |i|
       Admin.create!(
         email: Faker::Internet.email,
         password: DEFAULT_PASSWORD,
@@ -49,11 +55,6 @@ namespace :dev do
       )
     end
   end
-
-
-
-
-
 
 
   desc "Adiciona o usuário padrão"
@@ -66,7 +67,43 @@ namespace :dev do
   end
 
 
+  desc "Adiciona assuntos padrões"
+    task add_subjects: :environment do
+      file_name = 'subjects.txt'
+      file_path = File.join(DEFAULT_FILES_PATH, file_name)
 
+      File.open(file_path, 'r').each do |line|
+      Subject.create!(description: line.strip)
+    end
+  end
+
+  
+  desc "Adiciona perguntas e respostas"
+    task add_answers_and_questions: :environment do
+      Subject.all.each do |subject|
+        rand(5..10).times do |i|
+          params = {
+            question: {
+              description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+                subject: subject,
+                  answers_attributes: []
+            }
+          }
+          rand(2..5).times do |i|
+            params[:question][:answers_attributes].push(
+              {description: Faker::Lorem.sentence, correct: false}
+            )
+          end
+
+          params[:question][:answers_attributes][
+            rand(params[:question][:answers_attributes].size)
+          ] = {description: Faker::Lorem.sentence, correct: true}
+
+          Question.create!(params[:question])
+      end
+    end
+  end
+ 
 
   private
 
