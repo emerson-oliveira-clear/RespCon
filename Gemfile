@@ -42,6 +42,7 @@ gem 'cocoon'
 
 
 
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -75,6 +76,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
+  gem 'rails_db', '2.3.0'
 end
 
 group :test do

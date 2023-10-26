@@ -1,0 +1,91 @@
+<script>
+  function validAnswer(questionId){
+
+    const question = document.querySelector(`#question-${questionId}`)
+
+    const answers = question.querySelectorAll('input[type=radio]')
+
+    const button = question.querySelector('button')
+
+    console.log('button', button)
+
+    console.log('inputs:', answers)
+
+
+
+    let selectedAnswer;
+
+    answers.forEach(answer => {
+      if(answer.checked){
+        selectedAnswer = answer
+      }
+    })
+
+    if(selectedAnswer.value === 'true'){
+      button.classList.remove('btn-default')
+      button.classList.remove('btn-danger')
+      button.classList.add('btn-success')
+      $.bootstrapGrowl('Você acertou! \\o/', {
+      type: 'success', // (null, 'info', 'danger', 'success')
+      align: 'right', // ('left', 'right', or 'center')
+      allow_dismiss: true, // If true then will display a cross to close the popup.
+      stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+    }
+    else{
+      button.classList.remove('btn-default')
+      button.classList.add('btn-danger')
+      button.classList.remove('btn-success')
+      $.bootstrapGrowl('Você errou! :(', {
+      type: 'danger', // (null, 'info', 'danger', 'success')
+      align: 'right', // ('left', 'right', or 'center')
+      allow_dismiss: true, // If true then will display a cross to close the popup.
+      stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+    }
+
+
+
+
+  }
+</script>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <h3><%= msg_jumbotron %></h3>
+</div>
+
+<% @questions.each do |question| %>
+  <%= form_with url: site_answer_path do |form| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="label label-info" style="margin-right: 10px;">
+            <%= link_to "#{question.subject.description} (#{question.subject.questions_count})", site_search_subject_path(question.subject_id, question.subject.description), style:"color: white;" %>
+          </span>
+          <%= question.description %>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% question.answers.each do |answer| %>
+            <li style="list-style:none;" >
+              <div class="radio">
+                <label>
+                  <%= radio_button_tag 'answer_id', answer.id %>
+                  <%= answer.description %>
+                </label>
+              </div>
+            </li>
+          <% end %>
+          <li style="list-style:none;">
+            <%= form.submit "Responder", class:"btn btn-default", id: "submit_#{question.id}" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="text-center">
+  <%= paginate @questions %>
+</div>

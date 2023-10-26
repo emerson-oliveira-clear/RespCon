@@ -5,5 +5,5 @@
 *= require fastclick/lib/fastclick.js
 *= require nprogress/nprogress.js
 *= require custom.js
-
+*= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
 */
