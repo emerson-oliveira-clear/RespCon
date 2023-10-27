@@ -8,6 +8,22 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.enable_reloading = true
 
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '62eb9e8155a2e0',
+    :password => '28ecc638ea6c8f',
+    :address => 'sandbox.smtp.mailtrap.io',
+    :host => 'sandbox.smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
+
+
+
+
+
   # Do not eager load code on boot.
   config.eager_load = false
 

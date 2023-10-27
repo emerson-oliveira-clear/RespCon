@@ -26,3 +26,5 @@ Rails.application.config.assets.precompile += %w( oh_neyma.jpg )
 
 
 
+
+

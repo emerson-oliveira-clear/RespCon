@@ -30,14 +30,13 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   def edit
   end
 
-  def update
-    if @admin.update(params_admin)
-      redirect_to admins_backoffice_admins_path, notice: "Administrador atualizado"
-    else 
-      render :edit
+  if @admin.update(params_admin)
+    AdminMailer.update_email(current_admin, @admin).deliver_now
+    redirect_to admins_backoffice_admins_path, notice: "Administrador
+   atualizado com sucesso!"
+    else
+    render :edit
     end
-
-  end
 
   def destroy
     if @admin.destroy
